@@ -1,0 +1,9 @@
+version: '3.10'
+
+services:
+  social-search:
+    build: .
+    ports:
+      - ${PORT:-4567}:4567
+    volumes:
+      - ./search_words.yml:/usr/src/app/search_words.yml:ro
