@@ -4,7 +4,7 @@ x:
   - '"CoderDojo Kofu"'
   
   # shingen.py
-  - shingen.py
+  - '"shingen.py"'
   - '#shingenpy'
 
   # Yamanashi WordPress Meetup
@@ -13,8 +13,12 @@ x:
   - '"山梨WordPressミートアップ"'
   - '#yamanashiwp'
 
+  # GDG Yamanashi
+  - '"GDG Yamanashi"'
+  - '#gdg_yamanashi'
+
   # Houtou.pm
-  - Houtou.pm
+  - '"Houtou.pm"'
   - '#houtoupm'
   - 山梨プログラミング入学式
   - '#山梨プログラミング入学式'
@@ -32,7 +36,7 @@ x:
   - '#jawsug_yamanashi'
 
   # Kofu.rb
-  - Kofu.rb
+  - '"Kofu.rb"'
   - '#kofurb'
 
   # 東京-山梨 AI ミートアップ
