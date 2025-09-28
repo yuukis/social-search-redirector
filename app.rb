@@ -13,6 +13,10 @@ def load_search_words
   YAML.load_file(WORDS_FILE) || {}
 end
 
+get '/' do
+  erb :index
+end
+
 get '/:service' do
   service = params[:service]
   base_url = SEARCH_BASE[service]

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Search Redirector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .datetime-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1da1f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0d8bd9;
+        }
+        .note {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            border-radius: 0 5px 5px 0;
+        }
+        .note h3 {
+            margin: 0 0 10px 0;
+            color: #1976d2;
+        }
+        .note p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Social Search Redirector</h1>
+        
+        <form action="" method="get" id="searchForm">
+            <div class="form-group">
+                <label for="service">検索サービス:</label>
+                <select name="service" id="service" required>
+                    <option value="">サービスを選択してください</option>
+                    <option value="x">X (旧Twitter)</option>
+                </select>
+            </div>
+            
+            <div class="datetime-group">
+                <div class="form-group">
+                    <label for="since">開始日時 (任意):</label>
+                    <input type="datetime-local" name="since" id="since">
+                </div>
+                
+                <div class="form-group">
+                    <label for="until">終了日時 (任意):</label>
+                    <input type="datetime-local" name="until" id="until">
+                </div>
+            </div>
+            
+            <button type="submit">検索を実行</button>
+        </form>
+        
+        <div class="note">
+            <h3>📝 使い方</h3>
+            <p>• 検索サービスを選択して「検索を実行」ボタンを押してください</p>
+            <p>• 開始日時・終了日時は任意で指定できます</p>
+            <p>• 検索ワードは設定ファイル（search_words.yml）で管理されています</p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            const service = document.getElementById('service').value;
+            if (!service) {
+                e.preventDefault();
+                alert('検索サービスを選択してください');
+                return;
+            }
+            
+            // フォームのactionを動的に設定
+            const since = document.getElementById('since').value;
+            const until = document.getElementById('until').value;
+            
+            let url = '/' + service;
+            const params = new URLSearchParams();
+            
+            if (since) {
+                // datetime-localの形式をYYYY-MM-DD_HH:mm:ssに変換
+                const sinceFormatted = since.replace('T', '_') + ':00';
+                params.append('since', sinceFormatted);
+            }
+            
+            if (until) {
+                // datetime-localの形式をYYYY-MM-DD_HH:mm:ssに変換
+                const untilFormatted = until.replace('T', '_') + ':00';
+                params.append('until', untilFormatted);
+            }
+            
+            if (params.toString()) {
+                url += '?' + params.toString();
+            }
+            
+            window.location.href = url;
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
