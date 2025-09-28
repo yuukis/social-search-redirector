@@ -3,126 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Search Redirector</title>
+    <title>find.yamanashi.dev - やまなしエンジニアのための検索ポータル</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        select, input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
+        * {
             box-sizing: border-box;
         }
-        .datetime-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        button {
+        
+        .logo {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .logo img {
+            max-height: 92px;
+            max-width: 468px;
+            height: auto;
+            width: auto;
+        }
+        
+        .logo h1 {
+            font-size: 90px;
+            font-weight: normal;
+            margin: 0;
+            color: #4285f4;
+            display: none;
+        }
+        
+        .search-container {
             width: 100%;
-            padding: 12px;
-            background-color: #1da1f2;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            max-width: 584px;
+            padding: 0 20px;
+        }
+        
+        .search-box {
+            position: relative;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .search-input {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 0 20px;
             font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            background-color: #fff;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23666" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 12px;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
-        button:hover {
-            background-color: #0d8bd9;
+        
+        .search-input:hover {
+            border-color: #dadce0;
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
         }
-        .note {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            border-radius: 0 5px 5px 0;
+        
+        .search-input:focus {
+            border-color: #4285f4;
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
         }
-        .note h3 {
-            margin: 0 0 10px 0;
-            color: #1976d2;
+        
+        .options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-        .note p {
-            margin: 5px 0;
-            color: #666;
+        
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .option-label {
+            font-size: 13px;
+            color: #3c4043;
+        }
+        
+        select, input[type="datetime-local"] {
+            height: 36px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 0 8px;
             font-size: 14px;
+            background-color: #fff;
+            outline: none;
+            transition: border-color 0.2s ease-in-out;
+        }
+        
+        select:hover, input[type="datetime-local"]:hover {
+            border-color: #bdc1c6;
+        }
+        
+        select:focus, input[type="datetime-local"]:focus {
+            border-color: #4285f4;
+        }
+        
+        .buttons {
+            text-align: center;
+        }
+        
+        .search-button {
+            background-color: #5e17eb;
+            border: 1px solid #5e17eb;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 15px 4px;
+            padding: 0 32px;
+            line-height: 40px;
+            height: 48px;
+            min-width: 120px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .search-button:hover {
+            background-color: #4c12c4;
+            border: 1px solid #4c12c4;
+            box-shadow: 0 2px 8px rgba(94, 23, 235, 0.3);
+            color: #ffffff;
+        }
+        
+        .search-button:focus {
+            outline: none;
+            border: 1px solid #5e17eb;
+            box-shadow: 0 0 0 3px rgba(94, 23, 235, 0.2);
+        }
+        
+        .search-button:active {
+            background-color: #3d0e9f;
+            transform: translateY(1px);
+        }
+        
+        @media (max-width: 600px) {
+            .logo img {
+                max-height: 60px;
+                max-width: 306px;
+            }
+            
+            .logo h1 {
+                font-size: 60px;
+            }
+            
+            .options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .option-group {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            select, input[type="datetime-local"] {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔍 Social Search Redirector</h1>
-        
-        <form action="" method="get" id="searchForm">
-            <div class="form-group">
-                <label for="service">検索サービス:</label>
-                <select name="service" id="service" required>
-                    <option value="">サービスを選択してください</option>
-                    <option value="x">X (旧Twitter)</option>
+    <div class="logo">
+        <img src="/logo.png" alt="Social Search" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <h1>Social</h1>
+    </div>
+    
+    <div class="search-container">
+        <form id="searchForm">
+            <div class="search-box">
+                <select name="service" id="service" class="search-input" required>
+                    <option value="">検索サービスを選択してください</option>
+                    <option value="x">X (Twitter)</option>
                 </select>
             </div>
             
-            <div class="datetime-group">
-                <div class="form-group">
-                    <label for="since">開始日時 (任意):</label>
+            <div class="options">
+                <div class="option-group">
+                    <div class="option-label">開始日時</div>
                     <input type="datetime-local" name="since" id="since">
                 </div>
                 
-                <div class="form-group">
-                    <label for="until">終了日時 (任意):</label>
+                <div class="option-group">
+                    <div class="option-label">終了日時</div>
                     <input type="datetime-local" name="until" id="until">
                 </div>
             </div>
             
-            <button type="submit">検索を実行</button>
+            <div class="buttons">
+                <button type="submit" class="search-button">Search</button>
+            </div>
         </form>
-        
-        <div class="note">
-            <h3>📝 使い方</h3>
-            <p>• 検索サービスを選択して「検索を実行」ボタンを押してください</p>
-            <p>• 開始日時・終了日時は任意で指定できます</p>
-            <p>• 検索ワードは設定ファイル（search_words.yml）で管理されています</p>
-        </div>
     </div>
     
     <script>
         document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             const service = document.getElementById('service').value;
             if (!service) {
-                e.preventDefault();
                 alert('検索サービスを選択してください');
                 return;
             }
             
-            // フォームのactionを動的に設定
             const since = document.getElementById('since').value;
             const until = document.getElementById('until').value;
             
@@ -130,13 +236,11 @@
             const params = new URLSearchParams();
             
             if (since) {
-                // datetime-localの形式をYYYY-MM-DD_HH:mm:ssに変換
                 const sinceFormatted = since.replace('T', '_') + ':00';
                 params.append('since', sinceFormatted);
             }
             
             if (until) {
-                // datetime-localの形式をYYYY-MM-DD_HH:mm:ssに変換
                 const untilFormatted = until.replace('T', '_') + ':00';
                 params.append('until', untilFormatted);
             }
@@ -145,8 +249,7 @@
                 url += '?' + params.toString();
             }
             
-            window.location.href = url;
-            e.preventDefault();
+            window.open(url, '_blank');
         });
     </script>
 </body>
